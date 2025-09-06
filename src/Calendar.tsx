@@ -6,16 +6,16 @@ type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 interface Props {
-  setDate: Dispatch<SetStateAction<Date>>;
+  setDate: Dispatch<SetStateAction<string | Value>>;
 }
 
 export default function CalendarComponent({ ...props }: Props) {
   const [value, setValue] = useState<Value>(new Date());
   const { setDate } = props;
+
   useEffect(() => {
-    console.log(value);
-    setDate(value);
+    if (value !== null) setDate(value);
   }, [setDate, value]);
 
-  return <Calendar onChange={setValue} value={value} selectRange={true} />;
+  return <Calendar onChange={setValue} value={value} />;
 }
